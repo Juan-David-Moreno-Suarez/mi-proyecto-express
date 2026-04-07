@@ -7,14 +7,10 @@ app.use(express.json());
 
 // Endpoint Hello World
 app.get('/hola', (req, res) => {
-
-res.json({ mensaje: '¡Hola Mundo desde Express!' });
-
+    res.json({ mensaje: `¡Hola Mundo desde Express ${id}!` });
 });
 
 // Iniciar el servidor
 app.listen(PORT, () => {
-
-console.log(`Servidor corriendo en http://localhost:${PORT}`);
-
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
