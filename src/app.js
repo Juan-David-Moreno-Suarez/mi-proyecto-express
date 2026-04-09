@@ -16,6 +16,32 @@ app.get('/toFahrenheit', (req, res) => {
     res.json({mensaje: `resultado: ${fahrenheit} °F`})
 });
 
+app.get('/ageGroup', (req, res) => {
+    const {age} = req.query;
+    const group = () => {
+        switch (true) {
+            case parseInt(age) >= 0 && parseInt(age) <= 5:
+                return "Eres un bebé";
+            case parseInt(age) > 5 && parseInt(age) <= 12:
+                return "Eres un niño";
+            case parseInt(age) >= 12 && parseInt(age) <= 20:
+                return "Eres un adolescente";
+            case parseInt(age) > 20 && parseInt(age) <= 40:
+                return "Eres un adulto joven";
+            case parseInt(age) > 40 && parseInt(age) <= 65:
+                return "Eres un adulto";
+            case parseInt(age) > 65 && parseInt(age) <= 110:
+                return "Eres un adulto mayor";
+            case parseInt(age) > 110:
+                return "Eres un milagro";
+            
+            default:
+                return "Escribe un número válido"
+        }
+    }
+    res.json({mensaje: group()})
+});
+
 // Iniciar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
