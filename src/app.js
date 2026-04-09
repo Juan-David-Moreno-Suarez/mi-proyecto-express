@@ -62,6 +62,55 @@ app.post('/parImpar',(req,res) =>{
     res.send(`El número ${num} tiene ${par} par(es) y ${impar} impar(es)`);
 });
 
+app.post('/nameList', (req, res) => {
+    const {list} = req.query;
+    const lista = JSON.parse(list);
+    if (lista.length == 0) return res.status(400).send("Error: La lista está vacía");
+    let i_largest = 0;
+    let l_actual = 0;
+    const largest = () => {
+        lista.forEach((name, index) => {
+            if (name.length > l_actual) {
+                l_actual = name.length;
+                i_largest = index;
+            }
+        });
+        return i_largest;
+    }
+    let i_shortest= 0;
+    let s_actual = lista[0].length;
+    const shortest = () => {
+        lista.forEach((name, index) => {
+            if (name.length < s_actual) {
+                s_actual = name.length;
+                i_shortest = index;
+            }
+        });
+        return i_shortest;
+    }
+    res.send(`${lista[largest()]} es el nombre más largo y ${lista[shortest()]} es el más pequeño`);
+});
+
+app.post('/objectCreation', (req, res) => {
+    class Libro {
+        constructor(title, author, genre, code) {
+            this.title = title;
+            this.author = author;
+            this.genre = genre;
+            this.code = code;
+        }
+    }
+    const {title, author, genre} = req.query;
+
+    const bloque1 = Math.floor(1000 + Math.random() * 9000);
+    const bloque2 = Math.floor(1000 + Math.random() * 9000);
+    const code = `ISSN ${bloque1}-${bloque2}`;
+
+    const book = new Libro(title, author, genre, code);
+
+    res.json({Class: book.constructor.name, content: book});
+})
+
 // Iniciar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
