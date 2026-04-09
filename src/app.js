@@ -46,7 +46,12 @@ app.post('/parImpar',(req,res) =>{
     const {numero}= req.query;
     let par=0;
     let impar=0;
-    const numString = numero.toString();
+
+    const num = Number(numero);
+    
+    if (!Number.isInteger(num)) res.send("Escribe un número entero válido (en número, no en texto)");
+    const abs = (num >= 0) ? num : -num;
+    const numString = abs.toString();
     for (let digito of numString) {
         if (parseInt(digito) % 2 === 0) {
             par++;
@@ -54,7 +59,7 @@ app.post('/parImpar',(req,res) =>{
             impar++;
         }
     }
-    res.send(`El número ${numero} tiene ${par} pares y ${impar} impares`);
+    res.send(`El número ${num} tiene ${par} par(es) y ${impar} impar(es)`);
 });
 
 // Iniciar el servidor
