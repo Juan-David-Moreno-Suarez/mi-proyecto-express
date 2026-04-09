@@ -42,6 +42,21 @@ app.get('/ageGroup', (req, res) => {
     res.json({mensaje: group()})
 });
 
+app.post('/parImpar',(req,res) =>{
+    const {numero}= req.query;
+    let par=0;
+    let impar=0;
+    const numString = numero.toString();
+    for (let digito of numString) {
+        if (parseInt(digito) % 2 === 0) {
+            par++;
+        } else {
+            impar++;
+        }
+    }
+    res.send(`El número ${numero} tiene ${par} pares y ${impar} impares`);
+});
+
 // Iniciar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
